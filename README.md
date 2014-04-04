@@ -54,8 +54,8 @@ Your goal is to build a giant death robot to take over the world. Conquer the 10
 - Saw      H:0 A:1 D:3 C:6
 - Hammer   H:3 A:1 D:6 C:0
 
-### Robot Legs
+### Robot Base
 
-- Runners  H:6 A:2 D:0 C:2
+- Legs     H:6 A:2 D:0 C:2
 - Wheels   H:4 A:0 D:3 C:3
 - Tracks   H:1 A:7 D:2 C:0
