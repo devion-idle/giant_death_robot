@@ -1,0 +1,4 @@
+name: giant_death_robot
+description: A sample web application
+dependencies:
+  browser: any
