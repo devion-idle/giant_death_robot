@@ -1,16 +1,15 @@
 import 'dart:html';
+import 'dart:async';
 
 void main() {
-  querySelector("#sample_text_id")
-      ..text = "Click me!"
-      ..onClick.listen(reverseText);
+  Duration updateTime = new Duration(seconds:5);
+  Timer timer = new Timer.periodic(updateTime, updatePhase);
 }
 
-void reverseText(MouseEvent event) {
-  var text = querySelector("#sample_text_id").text;
-  var buffer = new StringBuffer();
-  for (int i = text.length - 1; i >= 0; i--) {
-    buffer.write(text[i]);
-  }
-  querySelector("#sample_text_id").text = buffer.toString();
+void updatePhase(Timer t) {
+  Element phase = querySelector('#phase');
+  if (phase.text == "Repair Phase")
+    phase.text = "Combat Phase";
+  else
+    phase.text = "Repair Phase";
 }
