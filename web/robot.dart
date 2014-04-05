@@ -42,20 +42,26 @@ void globalQueries() {
 }
 
 void expandPart(MouseEvent event) {
-  // Fetch target parent
+  // Build new element
   Element parent = (event.target as Element).parent;
+  int type = PartType[parent.id];
 
-  // Remove old details div
-  Element old = querySelector('#part');
-  if (old != null) old.remove();
+  // Test if valid parent
+  if (type != null)
+  {
+    // Remove old details div
+    Element old = querySelector('#part');
+    if (old != null) old.remove();
 
-  // Create div containing part details
-  Element part_details = new DivElement();
-  part_details.text = '${PartType[parent.id]}';
-  part_details.id = 'part';
+    // Create div containing part details
+    Element part_details = new DivElement();
+    part_details.id = 'part';
+    robot[type].display(part_details);
 
-  // Add new details div to parent
-  parent.children.add(part_details);
+    // Add new details div to parent
+    parent.children.add(part_details);
+  }
+
 }
 
 // robot parts initialization
