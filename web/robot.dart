@@ -31,15 +31,35 @@ void globalQueries() {
   robot_destruction = querySelector('#robot_destruction');
   robot_carnage = querySelector('#robot_carnage');
 
-  robot_head = querySelector('#head');
-  robot_torso = querySelector('#torso');
-  robot_l_arm = querySelector('#left_arm');
-  robot_r_arm = querySelector('#right_arm');
-  robot_base = querySelector('#base');
+  robot_head = querySelector('#head_text');
+  robot_torso = querySelector('#torso_text');
+  robot_l_arm = querySelector('#left_arm_text');
+  robot_r_arm = querySelector('#right_arm_text');
+  robot_base = querySelector('#base_text');
+
+  // add callbacks
+  querySelectorAll('.robot').onClick.listen(expandPart);
+}
+
+void expandPart(MouseEvent event) {
+  // Fetch target parent
+  Element parent = (event.target as Element).parent;
+
+  // Remove old details div
+  Element old = querySelector('#part');
+  if (old != null) old.remove();
+
+  // Create div containing part details
+  Element part_details = new DivElement();
+  part_details.text = '${PartType[parent.id]}';
+  part_details.id = 'part';
+
+  // Add new details div to parent
+  parent.children.add(part_details);
 }
 
 // robot parts initialization
-robotInit() {
+void robotInit() {
   head ..add(new Part('Lasers',0,0,5,5))
        ..add(new Part('Helmet',7,2,0,1))
        ..add(new Part('Crown',2,6,1,1));
