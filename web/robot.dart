@@ -56,19 +56,19 @@ void expandPart(MouseEvent event) {
     Element old = querySelector('#part');
     if (old != null) old.remove();
 
-    // Create div containing part details
-    int num = parts[type].length;
+    // Create div containing all parts, and a span for each part
     Element part_details = new DivElement();
+    int num = parts[type].length;
     List<Element> part_display = new List(num);
+
+    // Populate each span with the appropriate part
     for (int i = 0; i < num; i++) {
       Part p = parts[type][i];
       part_display[i] = new SpanElement();
       p.display(part_display[i]);
-      part_display[i].onClick.listen((Event e){
-        e;
-        id[type] = i;
 
-      });
+      // Part ID selector on click
+      part_display[i].onClick.listen((Event e){e;id[type] = i;});
     }
 
     // Add new details div to parent
