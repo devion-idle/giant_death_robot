@@ -17,12 +17,15 @@ Element robot_r_arm;
 Element robot_base;
 
 // robot parts
-List<Part> robot = [];
+List<List<Part>> parts = [];
 List<Part> head = [];
 List<Part> torso = [];
 List<Part> l_arm = [];
 List<Part> r_arm = [];
 List<Part> base = [];
+
+// selected part ids
+List<int> id;
 
 // queries for global elements
 void globalQueries() {
@@ -54,11 +57,18 @@ void expandPart(MouseEvent event) {
     if (old != null) old.remove();
 
     // Create div containing part details
+    int num = parts[type].length;
     Element part_details = new DivElement();
-    part_details.id = 'part';
-    robot[type].display(part_details);
+    List<Element> part_display = new List(num);
+    for (int i = 0; i < num; i++) {
+      Part p = parts[type][i];
+      part_display[i] = new SpanElement();
+      p.display(part_display[i]);
+    }
 
     // Add new details div to parent
+    part_details.id = 'part';
+    part_details.children.addAll(part_display);
     parent.children.add(part_details);
   }
 
@@ -86,7 +96,8 @@ void robotInit() {
        ..add(new Part('Wheels',4,0,3,3))
        ..add(new Part('Tracks',1,7,2,0));
 
-  robot.addAll([head[0], torso[0], l_arm[0], r_arm[0], base[0]]);
+  parts.addAll([head, torso, l_arm, r_arm, base]);
+  id = [0,0,0,0,0];
 }
 
 // update the robot stats to match new parts
@@ -96,12 +107,13 @@ void updateRobotStats() {
   int destruction = 0;
   int carnage = 0;
 
-  robot.forEach((Part p){
+  for (int i = 0; i < id.length; i++){
+    Part p = r_part(i);
     hull += p.hull;
     armor += p.armor;
     destruction += p.destruction;
     carnage += p.carnage;
-  });
+  }
 
   robot_hull.text = "Hull: $hull";
   robot_armor.text = "Armor: $armor";
@@ -109,6 +121,12 @@ void updateRobotStats() {
   robot_carnage.text = "Carnage: $carnage";
 }
 
+// Helper function to fetch the robot's current part
+Part r_part (int location) {
+  return parts[location][id[location]];
+}
+
+// Display updates
 void updatePartsDisplay() {
   updateHead();
   updateTorso();
@@ -118,21 +136,21 @@ void updatePartsDisplay() {
 }
 
 void updateHead() {
-  robot_head.text = 'Head: ${robot[0].name}';
+  robot_head.text = 'Head: ${r_part(0).name}';
 }
 
 void updateTorso() {
-  robot_torso.text = 'Torso: ${robot[1].name}';
+  robot_torso.text = 'Torso: ${r_part(1).name}';
 }
 
 void updateLArm() {
-  robot_l_arm.text = 'Left Arm: ${robot[2].name}';
+  robot_l_arm.text = 'Left Arm: ${r_part(2).name}';
 }
 
 void updateRArm() {
-  robot_r_arm.text = 'Right Arm: ${robot[3].name}';
+  robot_r_arm.text = 'Right Arm: ${r_part(3).name}';
 }
 
 void updateBase() {
-  robot_base.text = 'Base: ${robot[4].name}';
+  robot_base.text = 'Base: ${r_part(4).name}';
 }
