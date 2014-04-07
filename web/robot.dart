@@ -64,6 +64,11 @@ void expandPart(MouseEvent event) {
       Part p = parts[type][i];
       part_display[i] = new SpanElement();
       p.display(part_display[i]);
+      part_display[i].onClick.listen((Event e){
+        e;
+        id[type] = i;
+
+      });
     }
 
     // Add new details div to parent
@@ -71,7 +76,8 @@ void expandPart(MouseEvent event) {
     part_details.children.addAll(part_display);
     parent.children.add(part_details);
   }
-
+  updateRobotStats();
+  updatePartsDisplay();
 }
 
 // robot parts initialization
@@ -90,7 +96,7 @@ void robotInit() {
 
   r_arm..add(new Part('Blaster',1,6,1,2))
        ..add(new Part('Saw',0,1,3,6))
-       ..add(new Part('Hammer',3,1,7,0));
+       ..add(new Part('Hammer',3,1,6,0));
 
   base ..add(new Part('Legs',6,2,0,2))
        ..add(new Part('Wheels',4,0,3,3))
