@@ -68,7 +68,12 @@ void expandPart(MouseEvent event) {
       p.display(part_display[i]);
 
       // Part ID selector on click
-      part_display[i].onClick.listen((Event e){e;id[type] = i;});
+      part_display[i].onClick.listen((Event e){
+        e;
+        id[type] = i;
+        updateRobotStats();
+        updatePartsDisplay();
+      });
     }
 
     // Add new details div to parent
@@ -76,8 +81,6 @@ void expandPart(MouseEvent event) {
     part_details.children.addAll(part_display);
     parent.children.add(part_details);
   }
-  updateRobotStats();
-  updatePartsDisplay();
 }
 
 // robot parts initialization
