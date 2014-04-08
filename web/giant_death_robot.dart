@@ -2,6 +2,7 @@ import 'dart:html';
 import 'dart:async';
 
 import 'robot.dart';
+import 'scrap.dart';
 
 // launch function
 void main() {
@@ -10,6 +11,7 @@ void main() {
   robotInit();
   updateRobotStats();
   updatePartsDisplay();
+  updateScrap();
 
   // start
   Duration update_time = new Duration(seconds:5);
@@ -24,4 +26,3 @@ void updatePhase(Timer t) {
   else
     phase.text = "Repair Phase";
 }
-

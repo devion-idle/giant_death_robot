@@ -3,6 +3,7 @@ library Robot;
 import 'dart:html';
 
 import 'part.dart';
+import 'scrap.dart';
 
 // global elements
 Element robot_hull;
@@ -29,6 +30,8 @@ List<int> id;
 
 // queries for global elements
 void globalQueries() {
+  queryScrap();
+
   robot_hull = querySelector('#robot_hull');
   robot_armor = querySelector('#robot_armor');
   robot_destruction = querySelector('#robot_destruction');
@@ -68,7 +71,7 @@ void expandPart(MouseEvent event) {
       p.display(part_display[i]);
 
       // Part ID selector on click
-      part_display[i].onClick.listen((Event e){
+      (part_display[i].firstChild as Element).onClick.listen((Event e){
         e;
         id[type] = i;
         updateRobotStats();
@@ -163,3 +166,4 @@ void updateRArm() {
 void updateBase() {
   robot_base.text = 'Base: ${r_part(4).name}';
 }
+
