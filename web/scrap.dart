@@ -3,7 +3,7 @@ library Scrap;
 import 'dart:html';
 
 Element scrap;
-int scrap_val = 500;
+int scrap_val = 5000000000;
 
 // Fetch query for scrap
 void queryScrap() {

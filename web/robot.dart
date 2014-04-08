@@ -88,25 +88,25 @@ void expandPart(MouseEvent event) {
 
 // robot parts initialization
 void robotInit() {
-  head ..add(new Part('Lasers',0,0,5,5))
-       ..add(new Part('Helmet',7,2,0,1))
-       ..add(new Part('Crown',2,6,1,1));
+  head ..add(new Part('Lasers',0.0,0.0,5.0,5.0))
+       ..add(new Part('Helmet',7.0,2.0,0.0,1.0))
+       ..add(new Part('Crown',2.0,6.0,1.0,1.0));
 
-  torso..add(new Part('Plated',10,9,0,1))
-       ..add(new Part('Rockets',3,3,9,5))
-       ..add(new Part('Gatling',2,4,4,10));
+  torso..add(new Part('Plated',10.0,9.0,0.0,1.0))
+       ..add(new Part('Rockets',3.0,3.0,9.0,5.0))
+       ..add(new Part('Gatling',2.0,4.0,4.0,10.0));
 
-  l_arm..add(new Part('Missiles',1,1,2,6))
-       ..add(new Part('Sword',4,1,2,3))
-       ..add(new Part('Fist',1,2,7,0));
+  l_arm..add(new Part('Missiles',1.0,1.0,2.0,6.0))
+       ..add(new Part('Sword',4.0,1.0,2.0,3.0))
+       ..add(new Part('Fist',1.0,2.0,7.0,0.0));
 
-  r_arm..add(new Part('Blaster',1,6,1,2))
-       ..add(new Part('Saw',0,1,3,6))
-       ..add(new Part('Hammer',3,1,6,0));
+  r_arm..add(new Part('Blaster',1.0,6.0,1.0,2.0))
+       ..add(new Part('Saw',0.0,1.0,3.0,6.0))
+       ..add(new Part('Hammer',3.0,1.0,6.0,0.0));
 
-  base ..add(new Part('Legs',6,2,0,2))
-       ..add(new Part('Wheels',4,0,3,3))
-       ..add(new Part('Tracks',1,7,2,0));
+  base ..add(new Part('Legs',6.0,2.0,0.0,2.0))
+       ..add(new Part('Wheels',4.0,0.0,3.0,3.0))
+       ..add(new Part('Tracks',1.0,7.0,2.0,0.0));
 
   parts.addAll([head, torso, l_arm, r_arm, base]);
   id = [0,0,0,0,0];
@@ -121,10 +121,10 @@ void updateRobotStats() {
 
   for (int i = 0; i < id.length; i++){
     Part p = r_part(i);
-    hull += p.hull;
-    armor += p.armor;
-    destruction += p.destruction;
-    carnage += p.carnage;
+    hull += p.hull.toInt();
+    armor += p.armor.toInt();
+    destruction += p.destruction.toInt();
+    carnage += p.carnage.toInt();
   }
 
   robot_hull.text = "Hull: $hull";
