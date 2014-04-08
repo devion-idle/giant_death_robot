@@ -2,8 +2,10 @@ library Scrap;
 
 import 'dart:html';
 
+import 'helper.dart';
+
 Element scrap;
-int scrap_val = 5000000000;
+int scrap_val = 500000;
 
 // Fetch query for scrap
 void queryScrap() {
@@ -12,6 +14,6 @@ void queryScrap() {
 
 // update amount of scrap and display
 void updateScrap() {
-  scrap.text = "Scrap: $scrap_val";
+  scrap.text = "Scrap: ${shortPrint(scrap_val)}";
 }
 

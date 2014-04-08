@@ -4,6 +4,7 @@ import 'dart:html';
 
 import 'part.dart';
 import 'scrap.dart';
+import 'helper.dart';
 
 // global elements
 Element robot_hull;
@@ -127,10 +128,10 @@ void updateRobotStats() {
     carnage += p.carnage.toInt();
   }
 
-  robot_hull.text = "Hull: $hull";
-  robot_armor.text = "Armor: $armor";
-  robot_destruction.text = "Destruction: $destruction";
-  robot_carnage.text = "Carnage: $carnage";
+  robot_hull.text = "Hull: ${shortPrint(hull)}";
+  robot_armor.text = "Armor: ${shortPrint(armor)}";
+  robot_destruction.text = "Destruction: ${shortPrint(destruction)}";
+  robot_carnage.text = "Carnage: ${shortPrint(carnage)}";
 }
 
 // Helper function to fetch the robot's current part

@@ -4,6 +4,7 @@ import 'dart:html';
 
 import 'robot.dart';
 import 'scrap.dart';
+import 'helper.dart';
 
 var PartType = {"head": 0, "torso": 1, "left_arm": 2, "right_arm": 3, "base": 4};
 
@@ -51,11 +52,11 @@ class Part {
 
   void updateText() {
     part_name.text = "$name (LVL $level)";
-    part_hull.text = "H:${hull.toInt()} ";
-    part_armor.text = "A:${armor.toInt()} ";
-    part_destruction.text = "D:${destruction.toInt()} ";
-    part_carnage.text = "C:${carnage.toInt()}";
-    part_upgrade.text = "Upgrade (${upgrade_cost.toInt()} scrap)";
+    part_hull.text = "H:${shortPrint(hull)} ";
+    part_armor.text = "A:${shortPrint(armor)} ";
+    part_destruction.text = "D:${shortPrint(destruction)} ";
+    part_carnage.text = "C:${shortPrint(carnage)}";
+    part_upgrade.text = "Upgrade (${shortPrint(upgrade_cost)} scrap)";
   }
 
   // Part upgrade
