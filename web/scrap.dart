@@ -8,8 +8,9 @@ Element scrap;
 int scrap_val = 500000;
 
 // Fetch query for scrap
-void queryScrap() {
+void scrapInit() {
   scrap = querySelector('#scrap');
+  updateScrap();
 }
 
 // update amount of scrap and display

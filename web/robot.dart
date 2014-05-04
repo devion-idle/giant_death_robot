@@ -7,6 +7,9 @@ import 'scrap.dart';
 import 'helper.dart';
 
 // global elements
+int current_health = 0;
+int max_health = 0;
+Element health;
 Element robot_hull;
 Element robot_armor;
 Element robot_destruction;
@@ -28,25 +31,6 @@ List<Part> base = [];
 
 // selected part ids
 List<int> id;
-
-// queries for global elements
-void globalQueries() {
-  queryScrap();
-
-  robot_hull = querySelector('#robot_hull');
-  robot_armor = querySelector('#robot_armor');
-  robot_destruction = querySelector('#robot_destruction');
-  robot_carnage = querySelector('#robot_carnage');
-
-  robot_head = querySelector('#head_text');
-  robot_torso = querySelector('#torso_text');
-  robot_l_arm = querySelector('#left_arm_text');
-  robot_r_arm = querySelector('#right_arm_text');
-  robot_base = querySelector('#base_text');
-
-  // add callbacks
-  querySelectorAll('.robot').onClick.listen(expandPart);
-}
 
 void expandPart(MouseEvent event) {
   // Build new element
@@ -89,6 +73,8 @@ void expandPart(MouseEvent event) {
 
 // robot parts initialization
 void robotInit() {
+  robotQueries();
+
   head ..add(new Part('Lasers',0.0,0.0,5.0,5.0))
        ..add(new Part('Helmet',7.0,2.0,0.0,1.0))
        ..add(new Part('Crown',2.0,6.0,1.0,1.0));
@@ -109,8 +95,13 @@ void robotInit() {
        ..add(new Part('Wheels',4.0,0.0,3.0,3.0))
        ..add(new Part('Tracks',1.0,7.0,2.0,0.0));
 
+  // add parts to list of lists
   parts.addAll([head, torso, l_arm, r_arm, base]);
   id = [0,0,0,0,0];
+
+  // get starting robot stats and update display
+  updateRobotStats();
+  updatePartsDisplay();
 }
 
 // update the robot stats to match new parts
@@ -120,6 +111,7 @@ void updateRobotStats() {
   int destruction = 0;
   int carnage = 0;
 
+  // Accumulate total robot stats
   for (int i = 0; i < id.length; i++){
     Part p = r_part(i);
     hull += p.hull.toInt();
@@ -128,10 +120,20 @@ void updateRobotStats() {
     carnage += p.carnage.toInt();
   }
 
+  // Update max health
+  max_health = hull*10;
+
+  // Update robot stats text
+  updateHealth();
   robot_hull.text = "Hull: ${shortPrint(hull)}";
   robot_armor.text = "Armor: ${shortPrint(armor)}";
   robot_destruction.text = "Destruction: ${shortPrint(destruction)}";
   robot_carnage.text = "Carnage: ${shortPrint(carnage)}";
+}
+
+void updateHealth() {
+  if (current_health > max_health) current_health = max_health;
+  health.text = "${current_health}/${max_health}";
 }
 
 // Helper function to fetch the robot's current part
@@ -168,3 +170,21 @@ void updateBase() {
   robot_base.text = 'Base: ${r_part(4).name}';
 }
 
+// queries for global elements
+void robotQueries() {
+  health = querySelector('#health');
+
+  robot_hull = querySelector('#robot_hull');
+  robot_armor = querySelector('#robot_armor');
+  robot_destruction = querySelector('#robot_destruction');
+  robot_carnage = querySelector('#robot_carnage');
+
+  robot_head = querySelector('#head_text');
+  robot_torso = querySelector('#torso_text');
+  robot_l_arm = querySelector('#left_arm_text');
+  robot_r_arm = querySelector('#right_arm_text');
+  robot_base = querySelector('#base_text');
+
+  // add callbacks
+  querySelectorAll('.robot').onClick.listen(expandPart);
+}
